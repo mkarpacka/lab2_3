@@ -19,12 +19,22 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void isReturnedOneWithEmptySequences(){
+    public void isReturnedValueEqualOneWithEmptySequences(){
         int[] seq1 = {};
         int[] seq2 = {};
 
         double jackardSimilarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         Assert.assertThat(jackardSimilarity, Matchers.equalTo(1.0));
+    }
+
+    @Test
+    public void isReturnedValueEqualZeroWithDifferentSequences(){
+        int[] seq1 = {1, 2, 3};
+        int[] seq2 = {4, 5, 6};
+
+        double jackardSimilarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        Assert.assertThat(jackardSimilarity, Matchers.equalTo(0.0));
+
     }
 
 }
