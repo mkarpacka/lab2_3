@@ -45,6 +45,12 @@ public class SimilarityFinderTest {
         Assert.assertThat(jackardSimilarity, Matchers.equalTo(0.0));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void isThrownNullPointerExceptionIfArgumentIsNull() {
+        int[] seq1 = {1, 2, 3};
+
+        similarityFinder.calculateJackardSimilarity(seq1, null);
+    }
 
 
 }
