@@ -62,22 +62,38 @@ public class SimilarityFinderTest {
         Assert.assertThat(jackardSimilarity, Matchers.equalTo(0.0));
     }
 
-//    @Test
-//    public void isReturnedValueEqualZeroIfOneSequenceIsEmpty(){
-//        int[] seq1 = {};
-//        int[] seq2 = {4, 5, 6};
-//
-//        SimilarityFinder s = new SimilarityFinder(new SequenceSearcherCaseZero());
-//        double jackardSimilarity = s.calculateJackardSimilarity(seq1, seq2);
-//        Assert.assertThat(jackardSimilarity, Matchers.equalTo(0.0));
-//    }
-//
-//    @Test(expected = NullPointerException.class)
-//    public void isThrownNullPointerExceptionIfArgumentIsNull() {
-//        int[] seq1 = {1, 2, 3};
-//
-//        similarityFinder.calculateJackardSimilarity(seq1, null);
-//    }
+    @Test
+    public void isReturnedValueEqualZeroIfOneSequenceIsEmpty(){
+        int[] seq1 = {};
+        int[] seq2 = {4, 5, 6};
+
+        Map<Integer, SearchResult> valueMap = new HashMap<>();
+        valueMap.put(4, SearchResult.builder().withFound(false).build());
+        valueMap.put(5, SearchResult.builder().withFound(false).build());
+        valueMap.put(6, SearchResult.builder().withFound(false).build());
+
+        SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        double jackardSimilarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        Assert.assertThat(jackardSimilarity, Matchers.equalTo(0.0));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void isThrownNullPointerExceptionIfArgumentIsNull() {
+        int[] seq1 = {1, 2, 3};
+
+        Map<Integer, SearchResult> valueMap = new HashMap<>();
+        valueMap.put(1, SearchResult.builder().withFound(false).build());
+        valueMap.put(2, SearchResult.builder().withFound(false).build());
+        valueMap.put(3, SearchResult.builder().withFound(false).build());
+
+        SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
+
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+
+        similarityFinder.calculateJackardSimilarity(seq1, null);
+    }
 //
 //    @Test
 //    public void isReturnedZeroPointTwoWithGivenSequences(){
