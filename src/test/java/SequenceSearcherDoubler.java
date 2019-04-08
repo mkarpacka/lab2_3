@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import edu.iis.mto.search.SearchResult;
 import edu.iis.mto.search.SearchResult.Builder;
@@ -7,18 +8,23 @@ import edu.iis.mto.search.SequenceSearcher;
 
 public class SequenceSearcherDoubler implements SequenceSearcher{
 
-    public static int searchMethodCounter = 0;
+    public static int counter = 0;
+    private Map<Integer, SearchResult> map;
+
+    public SequenceSearcherDoubler() {
+        this.map = null;
+        counter = 0;
+    }
+
+    public SequenceSearcherDoubler(Map<Integer, SearchResult> valueMap) {
+        this.map = valueMap;
+        counter = 0;
+    }
 
     @Override public SearchResult search(int key, int[] seq) {
-        Builder builder = SearchResult.builder();
-        searchMethodCounter++;
-        int position = 0;
-        for(int i = 0; i < seq.length; i++) {
-            if(key == seq[i]) {
-                builder.withFound(true);
-                builder.withPosition(i);
-            }
+        if (map.get(key).isFound()) {
+            counter++;
         }
-        return builder.build();
+        return map.get(key);
     }
 }
