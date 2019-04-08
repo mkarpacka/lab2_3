@@ -24,26 +24,26 @@ public class SimilarityFinderTest {
         valueMap.put(2, SearchResult.builder().withFound(true).build());
         valueMap.put(3, SearchResult.builder().withFound(true).build());
 
-        SequenceSearcherDoubler sequenceSercher = new SequenceSearcherDoubler(valueMap);
+        SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
 
-        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSercher);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
 
         double jackardSimilarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         Assert.assertThat(jackardSimilarity, Matchers.equalTo(1.0));
 
     }
 
-//    @Test
-//    public void isReturnedValueEqualOneWithEmptySequences(){
-//        int[] seq1 = {};
-//        int[] seq2 = {};
-//
-//
-//        SimilarityFinder s = new SimilarityFinder(new SequenceSearcherCaseOne());
-//        double jackardSimilarity = s.calculateJackardSimilarity(seq1, seq2);
-//        Assert.assertThat(jackardSimilarity, Matchers.equalTo(1.0));
-//    }
-//
+    @Test
+    public void isReturnedValueEqualOneWithEmptySequences(){
+        int[] seq1 = {};
+        int[] seq2 = {};
+
+        SequenceSearcherDoubler sequenceSearcherDoubler = new SequenceSearcherDoubler();
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherDoubler);
+        double jackardSimilarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        Assert.assertThat(jackardSimilarity, Matchers.equalTo(1.0));
+    }
+
 //    @Test
 //    public void isReturnedValueEqualZeroWithDifferentSequences(){
 //        int[] seq1 = {1, 2, 3};
