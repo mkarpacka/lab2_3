@@ -8,7 +8,7 @@ import edu.iis.mto.search.SequenceSearcher;
 
 public class SequenceSearcherDoubler implements SequenceSearcher{
 
-    public static int counter = 0;
+    private int counter = 0;
     private Map<Integer, SearchResult> map;
 
     public SequenceSearcherDoubler() {
@@ -26,5 +26,9 @@ public class SequenceSearcherDoubler implements SequenceSearcher{
             counter++;
         }
         return map.get(key);
+    }
+
+    public int getCounter(){
+        return counter;
     }
 }
