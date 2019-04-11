@@ -4,14 +4,19 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SimilarityFinderTest {
 
-//    SequenceSearcherDoubler sequenceSearcherDoubler = new SequenceSearcherDoubler();
-//    SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherDoubler);
+    Map<Integer, SearchResult> valueMap = new HashMap<>();
 
+    private void addToHashmap(int[] integer, Boolean[] b){
+        for(int i=0; i<integer.length; i++) {
+            valueMap.put(integer[i], SearchResult.builder().withFound(b[i]).build());
+        }
+    }
 
 
     @Test
@@ -19,10 +24,9 @@ public class SimilarityFinderTest {
         int[] seq1 = {1, 2, 3};
         int[] seq2 = {1, 2, 3};
 
-        Map<Integer, SearchResult> valueMap = new HashMap<>();
-        valueMap.put(1, SearchResult.builder().withFound(true).build());
-        valueMap.put(2, SearchResult.builder().withFound(true).build());
-        valueMap.put(3, SearchResult.builder().withFound(true).build());
+        Boolean[] b = {true, true, true};
+
+        addToHashmap(seq1, b);
 
         SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
 
@@ -49,10 +53,9 @@ public class SimilarityFinderTest {
         int[] seq1 = {1, 2, 3};
         int[] seq2 = {4, 5, 6};
 
-        Map<Integer, SearchResult> valueMap = new HashMap<>();
-        valueMap.put(1, SearchResult.builder().withFound(false).build());
-        valueMap.put(2, SearchResult.builder().withFound(false).build());
-        valueMap.put(3, SearchResult.builder().withFound(false).build());
+        Boolean[] b = {false, false, false};
+
+        addToHashmap(seq1, b);
 
         SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
 
@@ -67,10 +70,9 @@ public class SimilarityFinderTest {
         int[] seq1 = {};
         int[] seq2 = {4, 5, 6};
 
-        Map<Integer, SearchResult> valueMap = new HashMap<>();
-        valueMap.put(4, SearchResult.builder().withFound(false).build());
-        valueMap.put(5, SearchResult.builder().withFound(false).build());
-        valueMap.put(6, SearchResult.builder().withFound(false).build());
+        Boolean[] b = {false, false, false};
+
+        addToHashmap(seq2, b);
 
         SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
 
@@ -83,10 +85,9 @@ public class SimilarityFinderTest {
     public void isThrownNullPointerExceptionIfArgumentIsNull() {
         int[] seq1 = {1, 2, 3};
 
-        Map<Integer, SearchResult> valueMap = new HashMap<>();
-        valueMap.put(1, SearchResult.builder().withFound(false).build());
-        valueMap.put(2, SearchResult.builder().withFound(false).build());
-        valueMap.put(3, SearchResult.builder().withFound(false).build());
+        Boolean[] b = {false, false, false};
+
+        addToHashmap(seq1, b);
 
         SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
 
@@ -100,11 +101,9 @@ public class SimilarityFinderTest {
         int[] seq1 = {1, 2, 3};
         int[] seq2 = {4, 2, 5};
 
+        Boolean[] b = {false, true, false};
 
-        Map<Integer, SearchResult> valueMap = new HashMap<>();
-        valueMap.put(1, SearchResult.builder().withFound(false).build());
-        valueMap.put(2, SearchResult.builder().withFound(true).build());
-        valueMap.put(3, SearchResult.builder().withFound(false).build());
+        addToHashmap(seq1, b);
 
         SequenceSearcherDoubler sequenceSearcher = new SequenceSearcherDoubler(valueMap);
 
